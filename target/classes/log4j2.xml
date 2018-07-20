@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="300">
+    <properties>
+        <property name="LOG_HOME">D:/logs</property>
+        <property name="FILE_NAME">mylog</property>
+    </properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+        </Console>
+        <!--<File name = "myFile" fileName="D:/app.log">-->
+            <!--<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />-->
+        <!--</File>-->
+        <!--fileName：current logfile-->
+        <!--filePaht: Rolling happened ,the rule of file reaame and transport-->
+        <!--siezbasedTriggeringPolicy: the size of file lagger the value,rolling-->
+        <!--DefaultRolloverStrategy: max num of saved file-->
+        <!--TimeBasedTriggeringPolicy  这个配置需要和filePattern结合使用，注意filePattern中配置的文件重命名规则是${FILE_NAME}-%d{yyyy-MM-dd HH-mm}-%i，-->
+        <!--最小的时间粒度是mm，即分钟，TimeBasedTriggeringPolicy指定的size是1，结合起来就是每1分钟生成一个新文件。如果改成%d{yyyy-MM-dd HH}，最小粒度为小时，则每一个小时生成一个文件-->
+        <RollingRandomAccessFIle name="myFile" fileName = "{LOG_HOME}/${FILE_NAME}.log"
+                filePattern="${LOG_HOME}/${date:yyyy-MM}/${FILE_NAME}-%d{yyyy-MM-dd HH-mm}-%i.log">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="60"/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20" />
+        </RollingRandomAccessFIle>
+    </Appenders>
+    <Loggers>
+        <Logger name = "mylog" level="trace" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="myFile"/>
+        </Logger>
+        <!--<Logger level="trace" additivity="false">-->
+            <!--<AppenderRef ref="Console"/>-->
+            <!--<AppenderRef ref="myFile"/>-->
+        <!--</Logger>-->
+        <Root level="error">
+            <AppenderRef ref="Console" />
+        </Root>
+    </Loggers>
+</Configuration>
