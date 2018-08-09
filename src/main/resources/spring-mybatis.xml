@@ -16,15 +16,23 @@
         <property name="password" value="${jdbc.password}"/>
     </bean>
 
+    <!--<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+        <!--&lt;!&ndash;查找Mapper.xml文件&ndash;&gt;-->
+        <!--<property name="mapperLocations" value="classpath*:cn/jonny/mapper/*Mapper.xml"/>-->
+        <!--&lt;!&ndash;指定mybatis配置文件，spring会覆盖数据源，envriment，以及事务管理，所以只需要配置<setteing></setteing>&ndash;&gt;-->
+        <!--&lt;!&ndash;和<typeAliases></typeAliases>即可&ndash;&gt;-->
+        <!--<property name="configLocation" value="classpath:druidmybatis-config.xml"/>-->
+    <!--</bean>-->
+
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <!--查找Mapper.xml文件-->
-        <property name="mapperLocations" value="classpath*:cn/jonny/mapper/*Mapper.xml"/>
+        <property name="mapperLocations" value="classpath*:cn/jonny/mapper/**/*Mapper.xml"/>
         <!--指定mybatis配置文件，spring会覆盖数据源，envriment，以及事务管理，所以只需要配置<setteing></setteing>-->
         <!--和<typeAliases></typeAliases>即可-->
         <property name="configLocation" value="classpath:druidmybatis-config.xml"/>
     </bean>
-
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
@@ -36,4 +44,16 @@
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
+
+    <bean id="globalStaticVariable" class="cn.jonny.GlobalStaticVariable"></bean>
+    <bean id="serverListen" class="cn.jonny.Server.ServerListen">
+        <constructor-arg index="0">
+            <value>8080</value>
+        </constructor-arg>
+    </bean>
+
+
+
+    <context:component-scan base-package="cn.jonny.Server"/>
+    <context:annotation-config></context:annotation-config>
 </beans>

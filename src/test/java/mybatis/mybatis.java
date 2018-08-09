@@ -1,8 +1,6 @@
 package mybatis;
 
-import cn.jonny.entity.User;
-import cn.jonny.mapper.UserMapper;
-import com.sun.org.apache.bcel.internal.generic.LUSHR;
+import cn.jonny.mapper.User.UserMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -12,8 +10,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class mybatis {
@@ -32,9 +28,9 @@ public class mybatis {
             logger.info("success");
             logger.info(user);*/
 
-           SqlSession sqlsession = sqlSessionFactory.openSession();
-           UserMapper userMapper =sqlsession.getMapper(UserMapper.class);
-           logger.info(userMapper.selectUser(1));
+//           userSqlSession sqlsession = sqlSessionFactory.openSession();
+//           UserMapper userMapper =sqlsession.getMapper(UserMapper.class);
+//           logger.info(userMapper.selectUser(1));
 
 //           User user = new User();
 //           user.setName("mybatis1");
@@ -51,8 +47,8 @@ public class mybatis {
 //            list.add(user);
 //            list.add(user1);
 //            userMapper.insertUserBash(list);
-           sqlsession.commit();
-           sqlsession.close();
+//           sqlsession.commit();
+//           sqlsession.close();
 
         } catch (IOException e) {
             e.printStackTrace();
