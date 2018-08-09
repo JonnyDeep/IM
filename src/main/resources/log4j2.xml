@@ -36,8 +36,8 @@
             <!--<AppenderRef ref="Console"/>-->
             <!--<AppenderRef ref="myFile"/>-->
         <!--</Logger>-->
-        <Root level="error">
-            <AppenderRef ref="Console" />
+        <Root level="all">
+            <AppenderRef ref="Console" level="DEBUG"/>
         </Root>
     </Loggers>
 </Configuration>

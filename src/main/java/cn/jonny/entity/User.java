@@ -4,6 +4,15 @@ public class User {
     private long id;
     private String name;
     private String password;
+    private int port;
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
 
     public long getId() {
         return id;
